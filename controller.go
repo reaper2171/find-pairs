@@ -12,21 +12,19 @@ func findPairs(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&requestBody)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(ErrorResponse{Message: "Invalid request body. Ensure 'numbers' is an array of integers and 'target' is an integer."})
+		json.NewEncoder(w).Encode(ErrorResponse{Message: "Invalid request body found. Please pass valid 'numbers' and 'target' input."})
 		return
 	}
 
-	// Validate that numbers is not empty
+	// Handle empty array edge case
 	if len(requestBody.Numbers) == 0 {
 		w.WriteHeader(http.StatusOK)
 		json.NewEncoder(w).Encode(ResponseBody{Solutions: [][]int{}})
 		return
 	}
 
-	// Call the function to get the index pairs
-	solutions := twoSum(requestBody.Numbers, requestBody.Target)
+	solutions := TwoSum(requestBody.Numbers, requestBody.Target)
 
-	// Return the response
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(ResponseBody{Solutions: solutions})
 }
