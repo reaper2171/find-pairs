@@ -3,6 +3,8 @@ package main
 import (
 	"reflect"
 	"testing"
+
+	"github.com/reaper2171/find-pairs/utils"
 )
 
 func TestTwoSum(t *testing.T) {
@@ -16,7 +18,7 @@ func TestTwoSum(t *testing.T) {
 			name:     "Valid pairs with duplicates",
 			numbers:  []int{1, 1, 2, 3, 7},
 			target:   4,
-			expected: [][]int{{1, 3}, {0, 3}},
+			expected: [][]int{{0, 3}, {1, 3}},
 		},
 		{
 			name:     "No pairs found",
@@ -40,15 +42,15 @@ func TestTwoSum(t *testing.T) {
 			name:     "Target is negative",
 			numbers:  []int{-1, -2, -3, -4},
 			target:   -5,
-			expected: [][]int{{2, 3}},
+			expected: [][]int{{1, 2}, {0, 3}},
 		},
 	}
 
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			result := TwoSum(tt.numbers, tt.target)
-			if !reflect.DeepEqual(result, tt.expected) {
-				t.Errorf("TwoSum(%v, %d) = %v; want %v", tt.numbers, tt.target, result, tt.expected)
+	for _, tc := range tests {
+		t.Run(tc.name, func(t *testing.T) {
+			result := utils.TwoSum(tc.numbers, tc.target)
+			if !reflect.DeepEqual(result, tc.expected) {
+				t.Errorf("TwoSum(%v, %d) = %v; want %v", tc.numbers, tc.target, result, tc.expected)
 			}
 		})
 	}

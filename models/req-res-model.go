@@ -1,4 +1,4 @@
-package main
+package models
 
 // defined the request body schema here
 type RequestBody struct {

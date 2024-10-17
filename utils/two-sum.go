@@ -1,4 +1,4 @@
-package main
+package utils
 
 func TwoSum(numbers []int, target int) [][]int {
 	// taking mutli-map here with []int as key's value here coz duplicate indices may satify the target value
